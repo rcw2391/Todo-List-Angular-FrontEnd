@@ -91,6 +91,9 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
       if (document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString())) {
         document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.add('hasList');
       }
+      if (toDo.items.length < 1) {
+        document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.remove('hasList');
+      }  
     }     
   }
 
@@ -110,6 +113,9 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
       for (let toDo of this.toDoArray){
         if (document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString())) {
           document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.add('hasList');
+        }
+        if (toDo.items.length < 1){
+          document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.remove('hasList');
         }  
       }      
     });

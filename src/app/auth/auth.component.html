@@ -20,3 +20,6 @@
         <button class="btn authButton" type="button" (click)="onResetPassword(authForm)" [disabled]="!authForm.controls.email.valid" *ngIf="isLogin">Reset Password</button>
     </div>
 </form>
+<div class="loadingScreen" *ngIf="isLoading">
+    <h1>Loading, please wait.</h1>
+</div>
