@@ -1,14 +1,13 @@
 {
   "name": "front-end",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build-prod": "bash ./scripts/ng.sh build --prod --aot --env=prod",
     "test": "ng test",
     "lint": "ng lint",
-    "test-browser-e2e-cucumber": "node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng e2e --webdriver-update",
-    "heroku-postbuild": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "engines": {
     "node": "12.10.0",
