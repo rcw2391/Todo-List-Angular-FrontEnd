@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
+    "test-browser-e2e-cucumber": "node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng e2e --webdriver-update",
     "heroku-postbuild": "ng build --prod"
   },
   "engines": {
