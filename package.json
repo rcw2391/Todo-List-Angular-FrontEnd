@@ -1,14 +1,13 @@
 {
   "name": "front-end",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --aot target=production"
+    "e2e": "ng e2e"
   },
   "engines": {
     "node": "12.10.0",
