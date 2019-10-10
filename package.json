@@ -1,10 +1,10 @@
 {
   "name": "front-end",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "bash ./scripts/ng.sh build --prod --aot --env=prod",
+    "build": "bash ./scripts/ng.sh build --prod --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
