@@ -1,0 +1,28 @@
+<div class="error-message" *ngIf="isError">
+    <h4>{{ displayError }}</h4>
+</div>
+<h4>Select a day on the calendar to create or modify a to-do list.</h4>
+<app-calendar></app-calendar>
+<div class="todoList" *ngIf="isDateSelected" #toDoList>
+    <hr>
+    <h4>Click on a todo item to edit.</h4>
+    <h4>Click save when you want to save your changes.</h4>
+    <h3 class="date-selected">{{ getDay(selectedDate.day) }}  {{ getMonth(selectedDate.month) }} {{ selectedDate.date }}, {{ selectedDate.year }}</h3>
+    <ul class="todo-items">
+        <li *ngFor="let item of itemList.items; let i = index" class="todo-item" id="{{'item' + i}}" >
+            <span (click)="onEditItem(i)">{{ item.item }}</span>
+            <span class="glyphicon glyphicon-ok todoglyph completeTodo" aria-hidden="true" (click)="onFinishItem(i)"></span>
+            <span class="glyphicon glyphicon-remove todoglyph removeTodo" aria-hidden="true" (click)="onRemoveItem(i)"></span>
+        </li>
+    </ul>
+    <input type="text" size="50" name="addItemInput" id="addItemInput" #addItemInput>
+    <button type="button" class="btn btn-dark addButton" (click)="onAddItem()">Add</button>
+    <button type="button" class="btn btn-dark saveButton" (click)="onSaveList()">Save</button>    
+</div>
+
+<div class="edit-item">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="onClose()"></span>
+    <h3>Click edit when finished.</h3>
+    <input type="text" size="80" name="edit-item" #editItem>
+    <button class="btn btn-dark" type="button" (click)="onSaveEditItem()">Edit</button>
+</div>

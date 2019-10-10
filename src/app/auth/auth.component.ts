@@ -1,0 +1,81 @@
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.css']
+})
+export class AuthComponent implements OnInit {
+
+  isLogin: boolean = false;
+  isError: boolean = false;
+  errorMessage: string = '';
+  isRegistered: boolean = false;
+  displayMessage: boolean = false;
+  messageToDisplay: string = '';
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.displayMessage = this.authService.displayMessage;
+    this.messageToDisplay = this.authService.messageToDisplay;
+    if (this.messageToDisplay.includes('please login')){
+      this.isLogin = true;
+    }
+  }
+
+  onSwitch() {
+    this.isLogin = !this.isLogin;
+  }
+
+  onSubmit(form: NgForm){
+    this.isRegistered = false;
+    this.displayMessage = false;
+    this.authService.displayMessage = false;
+    if (!this.isLogin){
+      if (form.value.password !== form.value.confirmPassword){
+        this.isError = true;
+        this.errorMessage = 'Passwords must match!';
+        return;
+      }
+    }
+    if (this.isLogin){
+      this.authService.postLogin(form.value.email, form.value.password).subscribe(responseData => {
+        if (responseData.message === 'Login Success') {
+          this.authService._id = responseData._id;
+          this.authService.authToken = responseData.token;
+          this.authService.isLoggedin = true;
+          this.router.navigate(['../todo-list']);
+          form.reset();
+        }
+      }, error => {
+        this.isError = true;
+        this.errorMessage = error.error.message;
+      });
+    } else {
+      this.authService.postSignUp(form.value.email, form.value.password, form.value.confirmPassword).subscribe(responseData => {
+        if (responseData.message === 'Successfully registered user.') {
+          this.isRegistered = true;
+          form.reset();
+        }
+      }, error => {
+        this.isError = true;
+        this.errorMessage = error.error.message;
+      }); 
+    } 
+  }
+
+  onResetPassword(form: NgForm){
+    this.isError = false;
+    this.authService.postResetPassword(form.value.email).subscribe(responseData => {
+      this.displayMessage = true;
+      this.messageToDisplay = responseData.message;
+    }, error => {
+      this.isError = true;
+      this.errorMessage = error.error.message;
+    });
+  }
+}

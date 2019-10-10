@@ -1,0 +1,22 @@
+<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div class="error-message" *ngIf="isError">
+        <h4>{{ errorMessage }}</h4>
+    </div>
+    <div class="registerSuccess" *ngIf="isRegistered">
+        <h4>Registration success! Check your email and follow the link to validate your account.</h4>
+    </div>
+    <div class="registerSuccess" *ngIf="displayMessage">
+        <h4>{{ messageToDisplay }}</h4>
+    </div>
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <label for="email"> Email</label>
+        <input type="text" name="email" id="email" class="form-control" ngModel required email>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" ngModel required minlength="6">
+        <label for="confirmPassword" *ngIf="!isLogin">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ngModel required minlength="6" *ngIf="!isLogin">
+        <button class="btn authButton" type="submit" [disabled]="!authForm.valid">{{ isLogin ? 'Login' : 'Sign Up' }}</button> |
+        <button class="btn authButton" type="button" (click)="onSwitch()">Switch to {{ isLogin ? 'Sign Up' : 'Login' }} </button>
+        <button class="btn authButton" type="button" (click)="onResetPassword(authForm)" [disabled]="!authForm.controls.email.valid" *ngIf="isLogin">Reset Password</button>
+    </div>
+</form>

@@ -1,0 +1,17 @@
+.container{
+    margin: auto;
+    width: 50%;
+    border: 1px solid #9e9a9a;
+    box-shadow: -2px -2px 5px 1px #9e9a9a inset;
+    border-radius: 5px;
+    padding: 0;
+    min-width: 360px;
+}
+
+.body-container {
+    text-align: center;
+}
+
+input {
+    border: 1px solid black;
+}

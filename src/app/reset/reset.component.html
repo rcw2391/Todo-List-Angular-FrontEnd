@@ -1,0 +1,14 @@
+<div class="error-message" *ngIf="isError">
+    <h4>{{ errorMessage }}</h4>
+</div>
+<div class="col-xs-12 col-md-6 col-md-offset-3">
+    <form #resetForm="ngForm" (submit)="onSubmit(resetForm)">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" id="email" ngModel required email>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" ngModel required>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="Password" name="confirmPassword" id="confirmPassword" class="form-control" ngModel required>
+        <button type="submit" class="btn btn-dark resetButton" [disabled]="!resetForm.controls.email.valid">Reset Password</button>
+    </form>
+</div>

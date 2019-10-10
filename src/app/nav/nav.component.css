@@ -1,0 +1,12 @@
+.auth {
+    float: right;
+}
+
+.container {
+    width: 50%;
+    padding: 0;
+}
+
+nav {
+    border-radius: 4px;
+}

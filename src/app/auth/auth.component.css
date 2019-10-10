@@ -1,0 +1,36 @@
+.authButton {
+    margin: 5px;
+    background-color: #3f3f3f;
+    border: 1px solid #8b8b8b;
+    color: white;
+}
+
+.authButton:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #3f3f3f;
+    color: black;  
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: black;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+}
+
+.error-message {
+    background-color: rgba(236, 56, 56, 0.8);
+    color: white;
+    border: 1px solid #801c1c;
+}
+
+.registerSuccess {
+    background-color: rgba(0, 207, 45, 0.8);
+    color: white;
+    border: 1px solid #41801c;
+}

@@ -1,0 +1,103 @@
+.calendar {
+    margin: auto;
+    width: 66%;
+    padding: 0 0 5rem 0;
+    min-width: 300px;
+}
+
+.container {
+    width: 99.6%;
+}
+
+.calendar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.calendar li {
+    display: inline-table;
+    width: 14.285%;
+}
+
+.row {
+    padding: 0;
+}
+
+.monthRow {
+    border: 1px solid black;
+    font-size: 2.5rem;
+    border-bottom: none;
+    background-color: #5c5c5c;
+    color: #ebe9e9;
+}
+
+.year {
+    margin-left: 1rem;
+}
+
+.nextMonth {
+    float: right;
+    user-select: none;
+    margin:0;
+    padding:0;
+}
+
+.nextMonth:hover,
+.previousMonth:hover {
+    cursor: pointer;
+}
+
+.previousMonth {
+    float: left;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.weekDay {
+    border: 1px solid black;
+    margin: 0;
+    text-align: center;
+}
+
+.date {
+    border: 1px solid black;
+}
+
+.date:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.lastMonth {
+    background-color: #a5a5a5;
+}
+
+.loadingScreen {
+    position: absolute;
+    z-index: 1;
+    height: 25%;
+    width: 33%;
+    bottom: 50%;
+    right: 33.5%;
+    background-color: rgba(63, 63, 63, .8);
+    color: white;
+    min-width: 300px;
+}
+
+.hasList {
+    color: white;
+    background-color: #4900d1;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.dateSelected {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    border: 1px solid white;
+}

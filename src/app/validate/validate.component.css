@@ -1,0 +1,18 @@
+.validateButton {
+    margin: 5px;
+    background-color: #3f3f3f;
+    border: 1px solid #8b8b8b;
+    color: white;
+}
+
+.validateButton:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #3f3f3f;
+    color: black;  
+}
+
+.error-message {
+    background-color: rgba(236, 56, 56, 0.8);
+    color: white;
+    border: 1px solid #801c1c;
+}

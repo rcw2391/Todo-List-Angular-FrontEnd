@@ -1,0 +1,131 @@
+.container {
+    margin: auto;
+}
+
+hr {
+    background-color: #8b8b8b;
+    width: 80%;
+}
+
+.todo-items{
+    list-style-position: inside;
+    margin-left: 15rem;
+    text-align: left;
+    font-size: 2rem;
+    user-select: none;
+}
+
+.todoglyph {
+    margin-left: 5px;
+}
+
+.todo-item span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: white;
+    background-color: #3f3f3f;
+    padding: 0 10px 0 10px;
+}
+
+.edit-item {
+    z-index: 1;
+    visibility: hidden;
+    position: absolute;
+    bottom: 50%;
+    right: 33.5%;
+    width: 33%;
+    height: 200px;
+    background-color: rgba(63, 63, 63, .8);
+    color: white;
+    min-width: 300px;
+}
+
+.edit-item span {
+    float: right;
+    color: #ff4747;
+    border: 1px solid white;
+    font-size: 1.5rem;
+}
+
+.edit-item span:hover {
+    cursor: pointer;
+}
+
+.edit-item input {
+    margin-top: 50px;
+    color: black;
+    width: 66%;
+}
+
+.edit-item button {
+    width: 100px;
+    margin-left: 5px;
+    background-color: #3f3f3f;
+    border: 1px solid #8b8b8b;
+}
+
+.edit-item button:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #3f3f3f;
+    color: black;
+}
+
+.addButton {
+    width: 100px;
+    margin: 0 0 10px 5px;
+    background-color: #3f3f3f;
+    border: 1px solid #8b8b8b;
+    color: white;
+}
+
+.addButton:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #3f3f3f;
+    color: black;  
+}
+
+.saveButton {
+    width: 100px;
+    margin: 0 0 10px 5px;
+    background-color: #3f3f3f;
+    border: 1px solid #8b8b8b;
+    color: white;
+    display: block;
+    margin: 1rem auto 1rem auto;
+}
+
+.saveButton:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #3f3f3f;
+    color: black;  
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.removeTodo {
+    color: red;
+}
+
+.completeTodo {
+    color: green;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+}
+
+.error-message {
+    background-color: rgba(236, 56, 56, 0.8);
+    color: white;
+    border: 1px solid #801c1c;
+}
