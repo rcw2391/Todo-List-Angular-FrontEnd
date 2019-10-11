@@ -1,14 +1,20 @@
 <div class="container">
-<nav class="navbar-inverse">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li>
-            <li routerLinkActive="active"><a routerLink="/todo-list">ToDo List</a></li>
-        </ul>
-        <ul class="nav navbar-nav auth">
-            <li *ngIf="this.authService.isLoggedin" (click)="onLogout()"><a>Logout</a></li>
-            <li *ngIf="!this.authService.isLoggedin" routerLinkActive="active"><a routerLink="/auth">Login/Sign Up</a></li>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar-inverse" *ngIf="!mobileNav">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></li>
+                <li routerLinkActive="active"><a routerLink="/todo-list">ToDo List</a></li>
+            </ul>
+            <ul class="nav navbar-nav auth">
+                <li *ngIf="this.authService.isLoggedin" (click)="onLogout()"><a>Logout</a></li>
+                <li *ngIf="!this.authService.isLoggedin" routerLinkActive="active"><a routerLink="/auth">Login/Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
 </div>
+<nav class="mobileNav" *ngIf="mobileNav">
+    <span routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></span>
+    <span routerLinkActive="active"><a routerLink="/todo-list">ToDo List</a></span>
+    <span *ngIf="this.authService.isLoggedin" (click)="onLogout()"><a>Logout</a></span>
+    <span *ngIf="!this.authService.isLoggedin" routerLinkActive="active"><a routerLink="/auth">Login/Sign Up</a></span>
+</nav>

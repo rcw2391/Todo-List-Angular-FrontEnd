@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewChecked} from '@angular/core';
 import { DateModel } from './date.model';
 import { CalendarService } from './calendar.service';
 
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ToDoListItem } from '../todo-list-item.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CalendarComponent implements OnInit, AfterViewChecked {
   
-  isLoading: boolean = true;
   loadNewSave: boolean = false;
   isFreshLoad: boolean = true;
   isEditing: boolean = false;
@@ -75,7 +74,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.generateCalendarDates();
     this.generateItems();
     this.calendarService.loadNewSave.subscribe((result: boolean) => {
-      this.isLoading = true;
+      this.calendarService.isLoading.emit(true);
       this.generateItems();
     });
     this.calendarService.isEditingItem.subscribe((result: boolean) => {
@@ -92,8 +91,10 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
         document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.add('hasList');
       }
       if (toDo.items.length < 1) {
-        document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.remove('hasList');
-      }  
+        if (document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString())){
+          document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString()).classList.remove('hasList');
+        }
+      }
     }     
   }
 
@@ -108,7 +109,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
         }
       }
       this.calendarService.toDoListArray.emit(this.toDoArray);
-      this.isLoading = false;
+      this.calendarService.isLoading.emit(false);
       this.loadNewSave = false;
       for (let toDo of this.toDoArray){
         if (document.getElementById(toDo.date.date.toString() + toDo.date.month.toString() + toDo.date.year.toString())) {
@@ -262,7 +263,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
   }
 
   onDate(date: DateModel){
-    if (!this.isLoading && !this.isEditing) {
+    if (!this.isEditing) {
       if (!this.isFreshLoad && document.getElementById(this.previouslySelected.date.toString() + this.previouslySelected.month + this.previouslySelected.year)) {
         document.getElementById(this.previouslySelected.date.toString() + this.previouslySelected.month + this.previouslySelected.year).classList.remove('dateSelected');
       }

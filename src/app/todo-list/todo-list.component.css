@@ -9,10 +9,11 @@ hr {
 
 .todo-items{
     list-style-position: inside;
-    margin-left: 15rem;
+    margin: auto;
     text-align: left;
     font-size: 2rem;
     user-select: none;
+    list-style-type: none;
 }
 
 .todoglyph {
@@ -128,4 +129,19 @@ button:focus {
     background-color: rgba(236, 56, 56, 0.8);
     color: white;
     border: 1px solid #801c1c;
+}
+
+@media only screen and (max-width: 768px) {
+    .edit-item {
+        z-index: 1;
+        visibility: hidden;
+        position: absolute;
+        left: 10%;
+        margin: auto;
+        width: 33%;
+        height: 200px;
+        background-color: rgba(63, 63, 63, .8);
+        color: white;
+        min-width: 300px;
+    }   
 }

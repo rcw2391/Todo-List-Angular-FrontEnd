@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { CalendarService } from '../todo-list/calendar/calendar.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,9 +17,8 @@ export class AuthComponent implements OnInit {
   isRegistered: boolean = false;
   displayMessage: boolean = false;
   messageToDisplay: string = '';
-  isLoading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private calendarService: CalendarService) { }
 
   ngOnInit() {
     this.displayMessage = this.authService.displayMessage;
@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    this.isLoading = true;
+    this.calendarService.isLoading.emit(true);
     this.isRegistered = false;
     this.displayMessage = false;
     this.authService.displayMessage = false;
@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
       if (form.value.password !== form.value.confirmPassword){
         this.isError = true;
         this.errorMessage = 'Passwords must match!';
-        this.isLoading = false;
+        this.calendarService.isLoading.emit(false);
         return;
       }
     }
@@ -51,41 +51,41 @@ export class AuthComponent implements OnInit {
           this.authService._id = responseData._id;
           this.authService.authToken = responseData.token;
           this.authService.isLoggedin = true;
-          this.isLoading = false;
+          this.calendarService.isLoading.emit(false);
           this.router.navigate(['../todo-list']);
           form.reset();
         }
       }, error => {
         this.isError = true;
         this.errorMessage = error.error.message;
-        this.isLoading = false;
+          this.calendarService.isLoading.emit(false);
       });
     } else {
       this.authService.postSignUp(form.value.email, form.value.password, form.value.confirmPassword).subscribe(responseData => {
         if (responseData.message === 'Successfully registered user.') {
           this.isRegistered = true;
-          this.isLoading = false;
+          this.calendarService.isLoading.emit(false);
           form.reset();
         }
       }, error => {
         this.isError = true;
         this.errorMessage = error.error.message;
-        this.isLoading = false;
+          this.calendarService.isLoading.emit(false);
       }); 
     } 
   }
 
   onResetPassword(form: NgForm){
-    this.isLoading = true;
+    this.calendarService.isLoading.emit(true);
     this.isError = false;
     this.authService.postResetPassword(form.value.email).subscribe(responseData => {
       this.displayMessage = true;
       this.messageToDisplay = responseData.message;
-      this.isLoading = false;
+      this.calendarService.isLoading.emit(false);
     }, error => {
       this.isError = true;
       this.errorMessage = error.error.message;
-      this.isLoading = false;
+        this.calendarService.isLoading.emit(false);
     });
   }
 }

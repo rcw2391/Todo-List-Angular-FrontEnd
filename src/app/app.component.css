@@ -5,11 +5,16 @@
     box-shadow: -2px -2px 5px 1px #9e9a9a inset;
     border-radius: 5px;
     padding: 0;
-    min-width: 360px;
+    min-width: 320px;
 }
 
 .body-container {
     text-align: center;
+    visibility: visible;
+}
+
+.loading {
+    visibility: hidden;
 }
 
 input {

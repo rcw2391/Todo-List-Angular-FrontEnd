@@ -41,6 +41,8 @@ export class CalendarService {
 
     isEditingItem = new EventEmitter<boolean>();
 
+    isLoading = new EventEmitter<boolean>();
+
     getMonth(position: number){
         return this.months[position];
     }

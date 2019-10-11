@@ -19,9 +19,10 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
   selectedItemElement: ElementRef;
   isError = false;
   displayError = '';
+  isEdit: boolean = false;
 
-  @ViewChild('editItem', {static: true}) editItem: ElementRef;
-  @ViewChild('addItemInput', {static: true}) addItemInput: ElementRef;
+  @ViewChild('editItem', {static: false}) editItem: ElementRef;
+  @ViewChild('addItemInput', {static: false}) addItemInput: ElementRef;
   
   toDoLists: ToDoListItem[] = [];
 
@@ -87,8 +88,8 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     this.isItemSelected = true;
     this.itemList.date = this.selectedDate;
     this.editItemIndex = position;
-    this.editItem.nativeElement.value = this.itemList.items[position].item;
-    this.editItem.nativeElement.parentElement.style.visibility = 'visible';
+    this.isEdit = true;
+    this.addItemInput.nativeElement.value = this.itemList.items[position].item;
   }
 
   onClose() {
@@ -98,17 +99,21 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
   }
 
   onSaveEditItem() {
-    const regex = /\W/g;
-    if (this.editItem.nativeElement.value.length > 50 || regex.test(this.editItem.nativeElement.value)) {
+    const regex = /[^\w\s]/g;
+    if (this.addItemInput.nativeElement.value.length > 50 || regex.test(this.addItemInput.nativeElement.value)) {
       this.isError = true;
       this.displayError = 'Todo Items must be alphanumeric and can be no longer than 50 characters.';
       return;
     }
     this.isError = false;    
-    this.itemList.items[this.editItemIndex].item = this.editItem.nativeElement.value;
+    this.itemList.items[this.editItemIndex].item = this.addItemInput.nativeElement.value;
     this.isItemSelected = false;
-    this.editItem.nativeElement.parentElement.style.visibility = 'hidden';
     this.calendarService.isEditingItem.emit(false);
+    this.isEdit = false;
+    this.addItemInput.nativeElement.value = '';
+    if (this.editItem.nativeElement.value.length < 1) {
+      this.onRemoveItem(this.editItemIndex);
+    }
   }
 
   onFinishItem(position: number) {
@@ -134,7 +139,14 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
   }
 
   onAddItem(){
-    const regex = /\W/g;
+    if (this.addItemInput.nativeElement.value.length < 1){
+      return;
+    }
+    if (this.isEdit){
+      this.onSaveEditItem();
+      return;
+    }
+    const regex = /^\w^\s/g;
     this.addItemInput = new ElementRef(document.getElementById('addItemInput'));
     if (this.addItemInput.nativeElement.value.length > 50 || regex.test(this.addItemInput.nativeElement.value)){
       this.isError = true;

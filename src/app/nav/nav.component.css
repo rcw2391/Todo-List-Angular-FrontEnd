@@ -10,3 +10,20 @@
 nav {
     border-radius: 4px;
 }
+
+.mobileNav {
+    text-decoration: none;
+    margin: auto;
+    padding: 0;
+    width: 50%;
+    background-color: black;
+    min-width: 360px;
+}
+
+.mobileNav span {
+    padding: 0 5px 0 5px;
+}
+
+.mobileNav span a {
+    color: white;
+}
