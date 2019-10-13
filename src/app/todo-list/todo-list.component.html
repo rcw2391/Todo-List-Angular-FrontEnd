@@ -10,9 +10,9 @@
     <h3 class="date-selected">{{ getDay(selectedDate.day) }}  {{ getMonth(selectedDate.month) }} {{ selectedDate.date }}, {{ selectedDate.year }}</h3>
     <ul class="todo-items">
         <li *ngFor="let item of itemList.items; let i = index" class="todo-item" id="{{'item' + i}}" >
-            <span (click)="onEditItem(i)">{{ item.item }}</span>
             <span class="glyphicon glyphicon-ok todoglyph completeTodo" aria-hidden="true" (click)="onFinishItem(i)"></span>
             <span class="glyphicon glyphicon-remove todoglyph removeTodo" aria-hidden="true" (click)="onRemoveItem(i)"></span>
+            <span (click)="onEditItem(i)">{{ item.item }}</span>
         </li>
     </ul>
     <input type="text" size="50" name="addItemInput" id="addItemInput" #addItemInput>

@@ -56,8 +56,18 @@ export class AuthComponent implements OnInit {
           form.reset();
         }
       }, error => {
-        this.isError = true;
-        this.errorMessage = error.error.message;
+        if (error.status === 401){
+          this.isError = true;
+          this.errorMessage = error.error.message;
+        } 
+        if (error.status === 429) {
+          this.isError = true;
+          this.errorMessage = 'Too many login attempts. Please try again in an hour.';
+        }
+        if (error.status >= 500) {
+          this.isError=true;
+          this.errorMessage="Server error. Please try again later."
+        }
           this.calendarService.isLoading.emit(false);
       });
     } else {
