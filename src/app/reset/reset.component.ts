@@ -9,8 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./reset.component.css']
 })
 export class ResetComponent implements OnInit {
+  // Handles Errors
   isError: boolean = false;
   errorMessage: string = '';
+  // Token for reset
   token: string = '';
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
@@ -19,6 +21,7 @@ export class ResetComponent implements OnInit {
     this.token = this.route.snapshot.params['token'];
   }
 
+  // Fired on submitting form
   onSubmit(form: NgForm){
     this.authService.postSubmitNewPassword(form.value.email, form.value.password, form.value.confirmPassword, 
       this.token).subscribe(responseData => {

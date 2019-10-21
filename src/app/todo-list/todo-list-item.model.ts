@@ -1,5 +1,6 @@
 import { DateModel } from './calendar/date.model';
-import { identifierModuleUrl } from '@angular/compiler';
+
+// Model for items in a to do list
 
 export class ToDoListItem {
     constructor(public date: DateModel, public items: Array<any>) {}

@@ -1,3 +1,5 @@
+<!-- Form for registering an account or logging in-->
+
 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
     <div class="error-message" *ngIf="isError">
         <h4>{{ errorMessage }}</h4>

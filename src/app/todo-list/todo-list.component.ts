@@ -12,20 +12,30 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit, AfterViewChecked{
+  // Currently selecte date
   selectedDate: DateModel;
+  // Determines if a date is selected
   isDateSelected: Boolean = false;
+  // Determines if a todo list item is selected
   isItemSelected: Boolean = false;
+  // Index of to do list item in array
   editItemIndex: number;
+  // Element for selected item
   selectedItemElement: ElementRef;
+  // Error handling
   isError = false;
   displayError = '';
+  // Determines if an item is being editted
   isEdit: boolean = false;
 
+  // Elements for to do inputs
   @ViewChild('editItem', {static: false}) editItem: ElementRef;
   @ViewChild('addItemInput', {static: false}) addItemInput: ElementRef;
   
+  // Array of todo lists
   toDoLists: ToDoListItem[] = [];
 
+  // Currently selected list
   itemList: ToDoListItem;
 
   constructor(private calendarService: CalendarService, private router: Router, private http: HttpClient,
@@ -43,6 +53,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     });
   }
 
+  // Get to do lists
   getToDoList() {
     if (this.isDateSelected){
       let tempItem: ToDoListItem;
@@ -61,6 +72,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     }    
   }
 
+  // Return custom string for date
   toDateString(date: DateModel): string {
     return date.date.toString() + date.day.toString() + date.month.toString() + date.year.toString();
   }
@@ -75,14 +87,17 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     }
   }
 
+  // Return the month
   getMonth(position: number){
     return this.calendarService.getMonth(position);
   }
 
+  // Return the day
   getDay(position: number) {
     return this.calendarService.getDay(position);
   }
 
+  // Fired on editing an item
   onEditItem(position: number) {
     this.calendarService.isEditingItem.emit(true);
     this.isItemSelected = true;
@@ -92,12 +107,14 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     this.addItemInput.nativeElement.value = this.itemList.items[position].item;
   }
 
+  // Fired on closing the edit item window
   onClose() {
     this.isItemSelected = false;
     this.editItem.nativeElement.parentElement.style.visibility = 'hidden';
     this.calendarService.isEditingItem.emit(false);
   }
 
+  // Fired on saving an edited item
   onSaveEditItem() {
     const regex = /[^\w\s]/g;
     if (this.addItemInput.nativeElement.value.length > 50 || regex.test(this.addItemInput.nativeElement.value)) {
@@ -116,6 +133,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     }
   }
 
+  // Fired on completing an item
   onFinishItem(position: number) {
     if (document.getElementById('item' + position).classList.contains("completed")) {
       document.getElementById('item' + position).classList.remove("completed");
@@ -126,6 +144,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     }
   }
 
+  // Fired on removing an item
   onRemoveItem(position: number){
     this.itemList.items.splice(position, 1);
     let itemIndex = this.toDoLists.findIndex(item => {
@@ -138,6 +157,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     }
   }
 
+  // Fired on adding an item
   onAddItem(){
     if (this.addItemInput.nativeElement.value.length < 1){
       return;
@@ -170,6 +190,7 @@ export class TodoListComponent implements OnInit, AfterViewChecked{
     this.isError = false;
   }
 
+  // Fired on clicking save
   onSaveList() {
     let itemIndex = this.toDoLists.findIndex(item => {
       return this.toDateString(item.date) === this.toDateString(this.selectedDate);

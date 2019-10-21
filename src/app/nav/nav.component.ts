@@ -8,9 +8,11 @@ import { AuthService } from '../auth/auth.service';
 })
 export class NavComponent {
   public innerWidth: number;
+  // Handles the display of mobile nav
   mobileNav: boolean;
   displayNav: boolean = false;
   
+  // Gets window size
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
@@ -32,11 +34,8 @@ export class NavComponent {
     }
   }
 
+  // Fired on clicking logout
   onLogout() {
     this.authService.logout();
-  }
-
-  onToggle(){
-    this.displayNav = !this.displayNav;
   }
 }

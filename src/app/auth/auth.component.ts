@@ -11,10 +11,14 @@ import { CalendarService } from '../todo-list/calendar/calendar.service';
 })
 export class AuthComponent implements OnInit {
 
+  //Tracks if user is logged in
   isLogin: boolean = false;
+  // Error handling
   isError: boolean = false;
   errorMessage: string = '';
+  // Tracks if user is registered
   isRegistered: boolean = false;
+  //Displays a message after registering
   displayMessage: boolean = false;
   messageToDisplay: string = '';
 
@@ -28,10 +32,12 @@ export class AuthComponent implements OnInit {
     }
   }
 
+  // Toggle login/register
   onSwitch() {
     this.isLogin = !this.isLogin;
   }
 
+  //Fired on submitting form
   onSubmit(form: NgForm){
     this.calendarService.isLoading.emit(true);
     this.isRegistered = false;
@@ -60,6 +66,10 @@ export class AuthComponent implements OnInit {
           this.isError = true;
           this.errorMessage = error.error.message;
         } 
+        if (error.status === 403) {
+          this.isError = true;
+          this.errorMessage = error.error.message;
+        }
         if (error.status === 429) {
           this.isError = true;
           this.errorMessage = 'Too many login attempts. Please try again in an hour.';
@@ -85,6 +95,7 @@ export class AuthComponent implements OnInit {
     } 
   }
 
+  // Fired on resetting password
   onResetPassword(form: NgForm){
     this.calendarService.isLoading.emit(true);
     this.isError = false;

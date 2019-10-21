@@ -1,3 +1,4 @@
+<!-- Nav bar -->
 <div class="container">
     <nav class="navbar-inverse" *ngIf="!mobileNav">
         <div class="container-fluid">
@@ -12,6 +13,7 @@
         </div>
     </nav>
 </div>
+<!-- Mobile nav bar -->
 <nav class="mobileNav" *ngIf="mobileNav">
     <span routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="">Home</a></span>
     <span routerLinkActive="active"><a routerLink="/todo-list">ToDo List</a></span>

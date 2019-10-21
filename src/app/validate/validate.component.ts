@@ -19,6 +19,7 @@ export class ValidateComponent implements OnInit {
   this.token = this.route.snapshot.params['token'];
   }
 
+  // Fired on submitting form
   onSubmit(form: NgForm){
     this.authService.postValidate(form.value.email, this.token).subscribe(responseData => {
       if (responseData.message === 'Validation succeeded, please login to continue.') {

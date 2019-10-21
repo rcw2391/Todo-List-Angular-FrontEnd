@@ -1,6 +1,8 @@
+<!-- Calendar -->
 <div class="calendar">
     <div class="container">
         <div class="row">
+            <!-- Row for year selection -->
             <div class="monthRow col-xs-12">
                 <span class="previousMonth" (click)="previousYear()">
                     <<</span>
@@ -8,6 +10,7 @@
                 <span class="nextMonth" (click)="nextYear()">>></span>
             </div>
         </div>
+            <!-- Row for month selection -->
         <div class="row">
                 <div class="monthRow col-xs-12">
                     <span class="previousMonth" (click)="previousMonth()"><<</span>
@@ -16,6 +19,7 @@
                 </div>
         </div>
     </div>
+        <!-- Rows for days -->
         <div class="row">
             <div class="col-xs-12">
                 <ul>

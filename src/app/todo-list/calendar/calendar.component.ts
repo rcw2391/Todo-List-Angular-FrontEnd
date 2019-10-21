@@ -14,17 +14,22 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CalendarComponent implements OnInit, AfterViewChecked {
   
+  // Calendar state management
   loadNewSave: boolean = false;
   isFreshLoad: boolean = true;
   isEditing: boolean = false;
-  
-  calendarPlaceHolder = ['', '', '', '', ''];
+
+  // Current date
   date: Date;
   month: string;
   year: number;
+  // The first day on the calendar
   startingDayOnCalendar: DateModel;
+  // The next day on the calendar
   nextDayOnCalendar: DateModel;
+  // Currently selected month
   currentMonth: number;
+  // The number of days in each month
   daysInMonths = {
     0: 31,
     1: 28,
@@ -39,6 +44,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     10: 30,
     11: 31
   }
+  // Days of the week
   week: string[] = [
     'Sun',
     'Mon',
@@ -49,8 +55,8 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     'Sat'
   ];
 
-  days: DateModel[] = [];
-
+  
+  // Display days on calendar
   weekOne: DateModel[] = [];
   weekTwo: DateModel[] = [];
   weekThree: DateModel[] = [];
@@ -58,10 +64,10 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
   weekFive: DateModel[] = [];
   weekSix: DateModel[] = [];
 
+  // To do list
   toDoArray: ToDoListItem[] = [];
 
-  getSub: Subscription = new Subscription();
-
+  // Previously selected day
   previouslySelected: DateModel;
 
   constructor(private calendarService: CalendarService, private http: HttpClient, private authService: AuthService) { }
@@ -98,6 +104,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     }     
   }
 
+  // Retrieve to do list for a day
   generateItems() {
     this.calendarService.getItems().subscribe((result: {todo: ToDoListItem[]}) => {
       let tempTodo: ToDoListItem;
@@ -122,6 +129,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  // Toggle to the next month
   nextMonth() {
     if (this.currentMonth === 11) {
       this.year += 1;
@@ -133,6 +141,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.generateCalendarDates();
   }
 
+  // Toggle to the previous month
   previousMonth() {
     if (this.currentMonth === 0){
       this.year -= 1;
@@ -144,6 +153,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.generateCalendarDates();
   }
 
+  // Toggle year
   nextYear() {
     this.year += 1;
     this.generateCalendarDates();
@@ -154,6 +164,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.generateCalendarDates();
   }
 
+  // Get the first day to display on calendar
   getStartingDay() {
     if (this.year % 4 === 0) {
       this.daysInMonths[1] = 29;
@@ -176,6 +187,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.calendarService.previouslySelectedDate = this.startingDayOnCalendar;
   }
 
+  // Get the next day to display for calendar
   getNextDay(currentDay: DateModel) {
     let nextDayDay: number;
     let nextDayDate: number;
@@ -203,6 +215,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     this.nextDayOnCalendar = new DateModel(nextDayDate, nextDayDay, nextDayMonth, nextDayYear);
   }
 
+  // Generate the dates for the calendar
   generateCalendarDates() {
     this.getStartingDay();
     if (this.weekOne.length === 0){
@@ -262,6 +275,7 @@ export class CalendarComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  // Fired on selecting a day on the calendar
   onDate(date: DateModel){
     if (!this.isEditing) {
       if (!this.isFreshLoad && document.getElementById(this.previouslySelected.date.toString() + this.previouslySelected.month + this.previouslySelected.year)) {

@@ -1,8 +1,10 @@
+<!-- Error handling on to do list -->
 <div class="error-message" *ngIf="isError">
     <h4>{{ displayError }}</h4>
 </div>
 <h4>Select a day on the calendar to create or modify a to-do list.</h4>
 <app-calendar></app-calendar>
+<!-- Display the todo list for a selected day -->
 <div class="todoList" *ngIf="isDateSelected" #toDoList>
     <hr>
     <h4>Click on a todo item to edit.</h4>
